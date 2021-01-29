@@ -63,7 +63,7 @@ public class SebaMobilityServicesApplication {
 		Invoice testInvoice = new Invoice(120.50, false);
 		ServicePoint testServicePoint = new ServicePoint("TUM Main Campus", "Arcisstr.", 21, "Munich");
 		User testUser = new User("Max", "Test", "max.test@tum.de", "pw123", "Arcisstr.", 21, "Munich");
-		Employee testEmployee = new Employee("Max", "Test", "max.test@tum.de", "pw123", "Arcisstr.", 21, "Munich", "0123456789", new Date());
+		Employee testEmployee = new Employee("Anna", "Test", "anna.test@tum.de", "pw123", "Arcisstr.", 21, "Munich", "0123456789", new Date());
 		Customer testCustomer = new Customer("Max", "Test", "max.test@tum.de", "pw123", "Arcisstr.", 21, "Munich", "maxtest", new Date());
 		Vehicle testVehicle = new Vehicle("TUM", "Vehicle", new Date(), true);
 		Car testCar = new Car("TUM", "Car", new Date(), true, 5, 215, "gasoline", 10000);
