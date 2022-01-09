@@ -8,9 +8,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @MappedSuperclass
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -26,20 +30,20 @@ public class User {
 	@NotBlank
 	private String streetName;
 	@Positive
-	private int streetNumber;
+	private int houseNumber;
 	@NotBlank
 	private String city;
-	
+
 	public User() {}
-	
-	public User(String firstName, String lastName, String email, String password, String streetName, int streetNumber,
+
+	public User(String firstName, String lastName, String email, String password, String streetName, int houseNumber,
 			String city) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.streetName = streetName;
-		this.streetNumber = streetNumber;
+		this.houseNumber = houseNumber;
 		this.city = city;
 	}
 
@@ -91,12 +95,12 @@ public class User {
 		this.streetName = streetName;
 	}
 
-	public int getStreetNumber() {
-		return streetNumber;
+	public int getHouseNumber() {
+		return houseNumber;
 	}
 
-	public void setStreetNumber(int streetNumber) {
-		this.streetNumber = streetNumber;
+	public void setHouseNumber(int houseNumber) {
+		this.houseNumber = houseNumber;
 	}
 
 	public String getCity() {
@@ -110,7 +114,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", streetName=" + streetName + ", streetNumber=" + streetNumber + ", city="
+				+ ", password=" + password + ", streetName=" + streetName + ", houseNumber=" + houseNumber + ", city="
 				+ city + "]";
 	}
 

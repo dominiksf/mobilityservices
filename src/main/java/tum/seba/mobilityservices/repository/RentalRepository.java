@@ -10,8 +10,8 @@ import tum.seba.mobilityservices.entity.Rental;
 
 @Repository
 public interface RentalRepository extends JpaRepository<Rental, Integer> {
-	
+
 	@Query("SELECT r FROM Rental r WHERE r.status = 'COMPLETED'")
-	List<Rental> findCompletedRentals();
+	public List<Rental> findCompletedRentals();
 
 }

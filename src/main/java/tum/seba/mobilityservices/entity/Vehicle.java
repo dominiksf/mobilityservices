@@ -14,33 +14,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Vehicle {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@NotBlank
-	private String manufacturer;
+	private String manufacturer;	
 	@NotBlank
 	private String modelType;
 	private Date lastService;
 	private boolean isAvailable;
-	
-	@OneToMany(mappedBy = "vehicle", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer","vehicle","invoice","startLocation","endLocation"})
+
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.PERSIST)
 	private List<Rental> rentals;
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"employees","rentalsStart","rentalsEnd","vehicles"})
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private ServicePoint currentLocation;
 	
 	public Vehicle() {}
-	
+
 	public Vehicle(String manufacturer, String modelType, Date lastService, boolean isAvailable) {
 		this.manufacturer = manufacturer;
 		this.modelType = modelType;

@@ -10,11 +10,11 @@ import javax.validation.constraints.Positive;
 
 @Entity
 public class Bicycle extends Vehicle {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Positive
 	private int numberOfGears;
 	private boolean isElectrical;

@@ -12,11 +12,11 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Car extends Vehicle {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Positive
 	private int numberOfSeats;
 	@Positive
@@ -25,9 +25,9 @@ public class Car extends Vehicle {
 	private String fuelType;
 	@PositiveOrZero
 	private int currentMileage;
-	
+
 	public Car() {}
-	
+
 	public Car(String manufacturer, String modelType, Date lastService, boolean isAvailable, int numberOfSeats,
 			int horsePower, String fuelType, int currentMileage) {
 		super(manufacturer, modelType, lastService, isAvailable);

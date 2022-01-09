@@ -11,8 +11,8 @@ import tum.seba.mobilityservices.entity.Vehicle;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
-	
-	@Query("SELECT v FROM Vehicle v WHERE v.currentLocation=?1")
-	List<Vehicle> findVehiclesByServicePoint(ServicePoint servicePoint);
+
+	@Query("SELECT v FROM Vehicle v WHERE v.currentLocation = ?1")
+	public List<Vehicle> findVehiclesByServicePoint(ServicePoint servicePoint);
 
 }

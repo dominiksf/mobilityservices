@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Rental {
 
 	public enum Status {BOOKED, COMPLETED, CANCELED}
@@ -22,34 +24,30 @@ public class Rental {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	private Date startTime;	
+
+	private Date startTime;
 	private Date endTime;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"rentals"})
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Customer customer;
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"rentals","currentLocation"})
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Vehicle vehicle;
-	
-	@OneToOne(cascade=CascadeType.PERSIST)
+
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Invoice invoice;
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"employees","rentalsStart","rentalsEnd","vehicles"})
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private ServicePoint startLocation;
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"employees","rentalsStart","rentalsEnd","vehicles"})
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private ServicePoint endLocation;
-	
+
 	public Rental() {}
-	
+
 	public Rental(Date startTime, Date endTime, Status status) {
 		this.startTime = startTime;
 		this.endTime = endTime;

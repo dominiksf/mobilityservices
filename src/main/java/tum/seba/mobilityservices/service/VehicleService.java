@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import tum.seba.mobilityservices.entity.ServicePoint;
 import tum.seba.mobilityservices.entity.Vehicle;
-import tum.seba.mobilityservices.exception.VehicleNotFoundException;
+import tum.seba.mobilityservices.exception.EntityNotFoundException;
 import tum.seba.mobilityservices.repository.VehicleRepository;
 
 @Service
@@ -14,8 +14,8 @@ public class VehicleService {
 	@Autowired
 	private VehicleRepository vehicleRepository;
 
-	public void save(Vehicle newVehicle) {
-		vehicleRepository.save(newVehicle);
+	public Vehicle save(Vehicle newVehicle) {
+		return vehicleRepository.save(newVehicle);
 	}
 
 	public Iterable<Vehicle> findAll() {
@@ -23,19 +23,18 @@ public class VehicleService {
 	}
 
 	public Vehicle findById(int vehicleId) {
-
-		return vehicleRepository.findById(vehicleId).orElseThrow(() -> new VehicleNotFoundException(vehicleId));
-
+		return vehicleRepository.findById(vehicleId).orElseThrow(() -> new EntityNotFoundException("Vehicle with ID '" + vehicleId + "' does not exist!"));
 	}
 
 	public void deleteById(int vehicleId) {
-
+		
 		try {
 			vehicleRepository.deleteById(vehicleId);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.err.println("Unable to delete Vehicle with ID: " + vehicleId);
 		}
-
+		
 	}
 
 	public Iterable<Vehicle> findVehiclesByServicePoint(ServicePoint servicePoint) {

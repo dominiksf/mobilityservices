@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tum.seba.mobilityservices.entity.Customer;
-import tum.seba.mobilityservices.exception.CustomerNotFoundException;
+import tum.seba.mobilityservices.exception.EntityNotFoundException;
 import tum.seba.mobilityservices.repository.CustomerRepository;
 
 @Service
@@ -13,8 +13,8 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	public void save(Customer newCustomer) {
-		customerRepository.save(newCustomer);
+	public Customer save(Customer newCustomer) {
+		return customerRepository.save(newCustomer);
 	}
 
 	public Iterable<Customer> findAll() {
@@ -22,19 +22,18 @@ public class CustomerService {
 	}
 
 	public Customer findById(int customerId) {
-
-		return customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
-
+		return customerRepository.findById(customerId).orElseThrow(() -> new EntityNotFoundException("Customer with ID '" + customerId + "' does not exist!"));
 	}
 
 	public void deleteById(int customerId) {
-
+		
 		try {
 			customerRepository.deleteById(customerId);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.err.println("Unable to delete Customer with ID: " + customerId);
 		}
-
+		
 	}
 
 	public Iterable<Customer> findCustomerWithUnpaidInvoices() {

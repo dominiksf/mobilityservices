@@ -12,49 +12,47 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ServicePoint {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotBlank
 	private String name;
 	@NotBlank
 	private String streetName;
 	@Positive
-	private int streetNumber;
+	private int houseNumber;
 	@NotBlank
 	private String city;
-	
-	@ManyToMany(cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"servicePoints"})
+
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Employee> employees;
-	
-	@OneToMany(mappedBy = "startLocation", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer","vehicle","invoice","startLocation","endLocation"})
+
+	@OneToMany(mappedBy = "startLocation", cascade = CascadeType.PERSIST)
 	private List<Rental> rentalsStart;
-	
-	@OneToMany(mappedBy = "endLocation", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer","vehicle","invoice","startLocation","endLocation"})
+
+	@OneToMany(mappedBy = "endLocation", cascade = CascadeType.PERSIST)
 	private List<Rental> rentalsEnd;
-	
-	@OneToMany(mappedBy = "currentLocation", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"rentals","currentLocation"})
+
+	@OneToMany(mappedBy = "currentLocation", cascade = CascadeType.PERSIST)
 	private List<Vehicle> vehicles;
-	
+
 	public ServicePoint() {}
-	
-	public ServicePoint(String name, String streetName, int streetNumber, String city) {
+
+	public ServicePoint(String name, String streetName, int houseNumber, String city) {
 		this.name = name;
 		this.streetName = streetName;
-		this.streetNumber = streetNumber;
+		this.houseNumber = houseNumber;
 		this.city = city;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -66,31 +64,31 @@ public class ServicePoint {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getStreetName() {
 		return streetName;
 	}
-	
+
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
-	
-	public int getStreetNumber() {
-		return streetNumber;
+
+	public int getHouseNumber() {
+		return houseNumber;
 	}
-	
-	public void setStreetNumber(int streetNumber) {
-		this.streetNumber = streetNumber;
+
+	public void setHouseNumber(int houseNumber) {
+		this.houseNumber = houseNumber;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
-	
+
 	public void setCity(String city) {
 		this.city = city;
 	}
@@ -129,8 +127,8 @@ public class ServicePoint {
 
 	@Override
 	public String toString() {
-		return "ServicePoint [id=" + id + ", name=" + name + ", streetName=" + streetName + ", streetNumber="
-				+ streetNumber + ", city=" + city + "]";
+		return "ServicePoint [id=" + id + ", name=" + name + ", streetName=" + streetName + ", houseNumber="
+				+ houseNumber + ", city=" + city + "]";
 	}
 
 }

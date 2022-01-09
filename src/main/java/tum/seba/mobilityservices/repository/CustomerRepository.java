@@ -10,8 +10,8 @@ import tum.seba.mobilityservices.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-	
-	@Query("SELECT c FROM Customer c, Rental r, Invoice i WHERE c.id = r.customer AND r.invoice = i.id AND i.isPaid=false")
-	List<Customer> findCustomersWithUnpaidInvoices();
+
+	@Query("SELECT c FROM Customer c, Rental r, Invoice i WHERE c.id = r.customer AND r.invoice = i.id AND i.isPaid = false")
+	public List<Customer> findCustomersWithUnpaidInvoices();
 
 }

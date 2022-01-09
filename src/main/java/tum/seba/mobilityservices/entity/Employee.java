@@ -8,24 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 public class Employee extends User {
 
 	@NotBlank
 	private String phoneNumber;
 	private Date employmentDate;
-	
-	@ManyToMany(mappedBy = "employees", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"employees","rentalsStart","rentalsEnd","vehicles"})
+
+	@ManyToMany(mappedBy = "employees", cascade = CascadeType.PERSIST)
 	private List<ServicePoint> servicePoints;
-	
+
 	public Employee() {}
-	
+
 	public Employee(String firstName, String lastName, String email, String password, String streetName,
-			int streetNumber, String city, String phoneNumber, Date employmentDate) {
-		super(firstName, lastName, email, password, streetName, streetNumber, city);
+			int houseNumber, String city, String phoneNumber, Date employmentDate) {
+		super(firstName, lastName, email, password, streetName, houseNumber, city);
 		this.phoneNumber = phoneNumber;
 		this.employmentDate = employmentDate;
 	}

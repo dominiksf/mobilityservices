@@ -7,22 +7,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Invoice {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private double price;
 	private boolean isPaid;
-	
-	@OneToOne(mappedBy = "invoice", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer","vehicle","invoice","startLocation","endLocation"})
+
+	@OneToOne(mappedBy = "invoice", cascade = CascadeType.PERSIST)
 	private Rental rental;
-	
+
 	public Invoice() {}
 	
 	public Invoice(double price, boolean isPaid) {

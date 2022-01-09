@@ -46,7 +46,6 @@ public class SebaMobilityServicesApplication {
 	
 	@Autowired
 	private VehicleService vehicleService;
-	
 
 	public static void main(String[] args) {
 		SpringApplication.run(SebaMobilityServicesApplication.class, args);
@@ -63,7 +62,7 @@ public class SebaMobilityServicesApplication {
 		Invoice testInvoice = new Invoice(120.50, false);
 		ServicePoint testServicePoint = new ServicePoint("TUM Main Campus", "Arcisstr.", 21, "Munich");
 		User testUser = new User("Max", "Test", "max.test@tum.de", "pw123", "Arcisstr.", 21, "Munich");
-		Employee testEmployee = new Employee("Anna", "Test", "anna.test@tum.de", "pw123", "Arcisstr.", 21, "Munich", "0123456789", new Date());
+		Employee testEmployee = new Employee("Max", "Test", "max.test@tum.de", "pw123", "Arcisstr.", 21, "Munich", "0123456789", new Date());
 		Customer testCustomer = new Customer("Max", "Test", "max.test@tum.de", "pw123", "Arcisstr.", 21, "Munich", "maxtest", new Date());
 		Vehicle testVehicle = new Vehicle("TUM", "Vehicle", new Date(), true);
 		Car testCar = new Car("TUM", "Car", new Date(), true, 5, 215, "gasoline", 10000);
@@ -83,24 +82,22 @@ public class SebaMobilityServicesApplication {
 		System.out.println(testBicycle.toString());
 		
 		// set associations
+		
 		testRental.setCustomer(testCustomer);
 		testRental.setVehicle(testCar);
 		testRental.setInvoice(testInvoice);
 		testRental.setStartLocation(testServicePoint);
 		testRental.setEndLocation(testServicePoint);
-		
 		testCustomer.setRentals(List.of(testRental));
-		
 		testCar.setCurrentLocation(testServicePoint);
 		testCar.setRentals(List.of(testRental));
-		
 		testServicePoint.setVehicles(List.of(testCar, testBicycle));
 		testServicePoint.setRentalsStart(List.of(testRental));
 		testServicePoint.setRentalsEnd(List.of(testRental));
 		testServicePoint.setEmployees(List.of(testEmployee));
 		testEmployee.setServicePoints(List.of(testServicePoint));
 		
-		// persist each instance to the database
+		// persist entities to database
 		
 		rentalService.save(testRental);
 		invoiceService.save(testInvoice);
@@ -110,7 +107,6 @@ public class SebaMobilityServicesApplication {
 		vehicleService.save(testVehicle);
 		vehicleService.save(testCar);
 		vehicleService.save(testBicycle);
-		
 		
 		// read each instance from the database
 		
@@ -122,6 +118,7 @@ public class SebaMobilityServicesApplication {
 		System.out.println(vehicleService.findById(testVehicle.getId()).toString());
 		System.out.println(vehicleService.findById(testCar.getId()).toString());
 		System.out.println(vehicleService.findById(testBicycle.getId()).toString());
+		
 		
 		// test queries
 		

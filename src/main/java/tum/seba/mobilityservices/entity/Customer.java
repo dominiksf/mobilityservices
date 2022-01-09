@@ -9,25 +9,22 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 public class Customer extends User {
-	
+
 	@NotBlank
-	@Column(unique=true)
+	@Column(unique = true)
 	private String username;
 	private Date dateOfBirth;
-	
-	@OneToMany(mappedBy = "customer", cascade=CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer","vehicle","invoice","startLocation","endLocation"})
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
 	private List<Rental> rentals;
-	
+
 	public Customer() {}
-	
+
 	public Customer(String firstName, String lastName, String email, String password, String streetName,
-			int streetNumber, String city, String username, Date dateOfBirth) {
-		super(firstName, lastName, email, password, streetName, streetNumber, city);
+			int houseNumber, String city, String username, Date dateOfBirth) {
+		super(firstName, lastName, email, password, streetName, houseNumber, city);
 		this.username = username;
 		this.dateOfBirth = dateOfBirth;
 	}
