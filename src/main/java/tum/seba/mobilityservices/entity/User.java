@@ -38,6 +38,7 @@ public class User {
 
 	public User(String firstName, String lastName, String email, String password, String streetName, int houseNumber,
 			String city) {
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
