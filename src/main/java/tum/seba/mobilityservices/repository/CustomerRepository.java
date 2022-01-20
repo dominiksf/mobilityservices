@@ -1,6 +1,7 @@
 package tum.seba.mobilityservices.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,8 @@ import tum.seba.mobilityservices.entity.User;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 
-	@Query("SELECT c FROM Customer c, Rental r, Invoice i WHERE c.id = r.customer AND r.invoice = i.id AND i.isPaid = false")
+	@Query("SELECT c FROM Customer c, Rental r, Invoice i WHERE c.id = r.customer.id AND r.invoice = i AND i.isPaid = false")
 	public List<Customer> findCustomersWithUnpaidInvoices();
 
+	Optional<User> findByEmail(String Username);
 }
